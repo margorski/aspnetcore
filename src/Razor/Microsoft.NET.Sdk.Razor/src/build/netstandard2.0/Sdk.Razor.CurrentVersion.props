@@ -18,6 +18,8 @@ Copyright (c) .NET Foundation. All rights reserved.
     Default properties for common Razor SDK behavior.
   -->
   <PropertyGroup>
+    <UsingMicrosoftNETSdkRazor>true</UsingMicrosoftNETSdkRazor>
+
     <!--
     Set to true to automatically include certain file types, such as .cshtml files, as content in the project.
     When referenced via Microsoft.NET.Sdk.Web, this additionally includes all files under wwwroot, and any config files.
@@ -71,6 +73,14 @@ Copyright (c) .NET Foundation. All rights reserved.
     This property affects C# projects targeting 3.0 or later.
     -->
     <RazorUpToDateReloadFileTypes>.cs;.razor;.resx;.cshtml</RazorUpToDateReloadFileTypes>
+  </PropertyGroup>
+
+  <!-- Defaults for Blazor WebAssembly projects. We need these to be setup early in the build to correctly enable linker \ publishing features -->
+  <PropertyGroup Condition="'$(UseBlazorWebAssembly)' == 'true'">
+    <RuntimeIdentifier>browser-wasm</RuntimeIdentifier>
+    <PublishTrimmed>true</PublishTrimmed>
+    <SelfContained>true</SelfContained>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(EnableDefaultItems)' == 'true' And '$(EnableDefaultContentItems)' == 'true'">
